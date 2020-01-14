@@ -1,0 +1,61 @@
+body {
+  font-family: "Roboto", sans-serif;
+  color: white;
+  margin:0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background:url("https://secureservercdn.net/198.71.233.179/4bw.816.myftpupload.com/wp-content/uploads/2019/09/GrassBGDark-1024x640.jpg") fixed;
+  background-color: darkgreen;
+}
+
+h1 {
+  text-align: center;
+}
+.topHead > img {
+  max-block-size: 100px;
+  display: block;
+  margin: 0 auto;
+}
+
+.progressBar > progress {
+  display: block;
+  margin: auto;
+}
+
+.progressBar li {
+  display: inline-block;
+  list-style: none;
+  text-align: center;
+  margin-right: 20px;
+}
+
+.progressBar > ul {
+  display: block;
+  text-align: center;
+}
+
+.mainBox > img {
+  max-block-size: 100px;
+  display: block;
+  margin: 0 auto;
+}
+
+.mainBox > h2 {
+  text-align: center;
+}
+
+button {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.mainBox {
+  border: white solid;
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+.soundBox {
+  text-align: center;
+}

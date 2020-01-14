@@ -1,12 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>repl.it</title>
+    <title>Can You Beat the Goalkeeper?</title>
+    <meta name="description" type="A quiz app to test whether you are talented enough to score against the goalkeeper.">
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
+
+
   <body>
+    <main role="main" class="container">
+      <header role="banner" class="header">
+        <h1 class="header"> Welcome to the Ultimate Quiz </h1>
+        <section class="topHead">
+          <img src="Images/soccerBanner.png" alt="soccerBanner">
+        </section>
+
+        <section class="progressBar">
+          <progress class="completion" value="1" max ="7"> </progress>
+          <ul>
+            <li class="progress"># of Goals:
+              <span class="goalNumber">0</span>
+            </li>
+            <li class="progress"># of Misses:
+              <span class="missNumber">0</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="mainBox">
+          <h2> Can You Beat the GoalKeeper? </h2>
+          <button type="button" class="startQuiz">START</button>
+          <img src="Images/goalKeeper.png" alt="goalKepper">
+          <section class="soundBox">
+            <audio id="myAudio">
+              <source src="Sounds/whistle.mp3" type="audio/mpeg">
+            </audio>
+            <p> Click the Button to See What Happens!</p>
+
+            <button onclick="playAudio()" type="button"> Play</button>
+        </section>
+        <section class="questionBox"> </section>
+        <section class="feedBack"> </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
