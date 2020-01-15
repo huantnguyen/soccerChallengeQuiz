@@ -10,7 +10,7 @@ const STORE = [
   {
     question: "It is a penalty! You slowly walk to the spot to prepare for the kick while the goalkeeper is provoking you with ridiculous shouts and pointing his hand to the right of the goal..... How would you kick the ball?", 
     answers: [
-      "Hah! Let's beat the keeper at his own mind game by kicking the ball with so much power to the upper right corner ofcourse.",
+      "Hah! Let's beat the keeper at his own mind game by kicking the ball with so much power to the upper right corner of course.",
       "Dang! He might be tricking me not to kick to the left so maybe a shot to the upper left corner would get him.",
       "Man his mind game is making me pretty nervous. Perhaps I will choose a safe option and put the ball in the middle of the goal",
       "I have a trick up my sleeve too! I will make a ridiculously slow run towards the ball that makes him become nervous and impatient. Then, I will kick the ball softly to the lower corner or either the right or left."
@@ -62,7 +62,7 @@ const STORE = [
     correctAnswer:
       "Try to calm down my team and encourages them to focus in order to score another goal without conceeding a goal as well."
   }
-]
+];
 
 
 //Create variable to store the number of goals and misses
@@ -75,20 +75,80 @@ let miss = 0;
 
 
 function startQuiz() {
+  $('.result').hide();
+  $('.feedBack').hide();
   $('.questionBox').hide();
   $('.completion').hide();
   $('.mainBox').on('click', '.startQuiz', function (event) {
     $('.mainBox').hide();
     $('.completion').show();
     $('.questionBox').show();
-    //$('.questionBox').prepend(generateQuestion());
+    //$('.questionBox').prepend(generateQuestions());
   });
 }
 
+function generateQuestions(questionNumber) {
+  const output = [];
+  let questionGen = `
+    <form>
+      <fieldset>
+        <legend class="textQuestion">${STORE[questionNumber].question} </legend>
+      </fieldset>
+    </form>` ;
+  const anws = [];
+  STORE[questionNumber].answers.forEach(function(element) {
+    anws.push(`
+      <label>
+        <input type="radio" value="${element}" required>
+        <span>${element} </span> <br> <br>
+      </label>`)
+  });
+  const allAnsw = anws.join('');
+  output.push(
+    `${questionGen}
+    ${allAnsw}
+    ${`<button type="submit" class="submitButton">Submit</button`}`
+  );
+  finalOutput = output.join('');
+  $('.questionBox').html(finalOutput);
+  return questionGen;
+}
+
+function feedBack() {
+  $('.questionBox').on('click', '.submitButton', function (event) {
+    event.preventDefault();
+    $('.questionBox').hide();
+    var list = document.getElementById("pending");
+    list.value = "7";
+    $('.feedBack').show();
+    $('.feedBack').append(`<button type="finalize" class="finalizeButton">See Result</button`);
+  });
+}
+
+function finalize() {
+  $('.feedBack').on('click', '.finalizeButton', function (event) {
+    event.preventDefault();
+    $('.feedBack').hide();
+    $('.result').show();
+    $('.result').append(`<button type="restart" class="restartButton">Try Again!</button`);
+  });
+}
+
+function startQuiz2() {
+  $('.result').on('click', '.restartButton', function (event) {
+    $('.result').hide();
+    $('.questionBox').show();
+    //$('.questionBox').prepend(generateQuestions());
+  });
+}
 
 //Main function
 function main() {
   startQuiz();
+  generateQuestions(0);
+  feedBack();
+  finalize();
+  startQuiz2();
 }
 
 $(main);
