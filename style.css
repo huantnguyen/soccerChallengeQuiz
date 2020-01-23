@@ -171,27 +171,27 @@ button:active {
 
 @media only screen and (max-width: 360px) {
 .mainBox {
-  width: 50%;
-  height: 50%;
+  width: 90%;
+  height: 90%;
   margin: 0 auto;
   margin-top: 20px;
 }
 
 .questionBox {
-  width: 50%;
-  height: 50%;
+  width: 90%;
+  height: 90%;
   margin: 0 auto;
 }
 
 .feedBack {
-  width: 50%;
-  height: 50%;
+  width: 90%;
+  height: 90%;
   margin: 0 auto;
 }
 
 .result {
-  width: 50%;
-  height: 50%;
+  width: 90%;
+  height: 90%;
   margin: 0 auto;
 }
 
@@ -206,4 +206,5 @@ button:active {
   display: block;
   margin: 0 auto;
 }
+
 }
