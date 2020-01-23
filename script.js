@@ -84,6 +84,7 @@ function startQuiz() {
     $('.mainBox').hide();
     $('.progressBar').show();
     $('.questionBox').show();
+    updateProgress();
   });
 }
 
@@ -99,8 +100,8 @@ function generateQuestions(questionNumber) {
   STORE[questionNumber].answers.forEach(function(element) {
     anws.push(`
       <label>
-        <input type="radio" value="${element}" name="choices" required>
-        <span>${element} </span> <br> <br>
+        <input type="radio" value="${element}" name="choices" required> </input>
+        <span>${element}</span> <br> <br>
       </label>`)
   });
   const allAnsw = anws.join('');
@@ -124,15 +125,16 @@ function feedBack() {
       <h3> GOAL!!! You made the right choice that gives your team the lead. Nice work! </h3>
       <img src="Images/Goal.png" alt="Goal">
       <span> Keep on the good work! </span>
-      <br> <br>`);
+      `);
       score ++;
       $('.goalNumber').text(score);
     } else {
       $('.feedBack').html(`
       <h3> And the chance goes wasted! You tried but it was not enough and the goalkeeper got to the ball :( </h3>
       <img src="Images/Miss.png" alt="Goal">
-      <span> Don't worry there are more chances! </span>
-      <br> <br>`);
+      <section class="shouldBe"> The correct choice would have been: ${correctChoice} </section>
+      <span> Don't worry there are more chances! </span> <br> <br>
+      `);
       miss ++;
       $('.missNumber').text(miss);
     }
@@ -146,11 +148,18 @@ function feedBack() {
   });
 }
 
+
+
+function updateProgress(){
+  let list = document.getElementById("pending");
+  list.value++;
+}
+
+
 function nextQuestion() {
   $('.feedBack').on('click', '.nextButton', function(event) {
     event.preventDefault();
-    let list = document.getElementById("pending");
-    list.value++;
+    updateProgress();
     $('.feedBack').hide();
     questionNumber++;
     if (questionNumber < STORE.length) {
@@ -160,11 +169,11 @@ function nextQuestion() {
   });
 }
 
+
 function finalize() {
   $('.feedBack').on('click', '.seeResult', function (event) {
     event.preventDefault();
-    let list = document.getElementById("pending");
-    list.value++;
+    updateProgress();
     $('.feedBack').hide();
     $('.result').show();
     if (score >= 3) {
@@ -179,7 +188,7 @@ function finalize() {
       <h3> It was a great match but your team did not win. Learn from your mistakes and make better decisions next time. </h3>
       <br> <br>
       <img src="Images/Down.png" alt="bad">
-      <span> You scored ${score}/5 chances </span>
+      <span> You scored ${score}/5 chances </span> <br><br>
       `
       );
     }
@@ -193,10 +202,13 @@ function restartQuiz() {
     score = 0;
     miss = 0;
     questionNumber = 0;
+    let list = document.getElementById("pending");
+    list.value = 0;
     $('.goalNumber').text(score);
     $('.missNumber').text(miss);
     $('.result').hide();
     $('.mainBox').show();
+    generateQuestions(questionNumber);
   });
 }
 
