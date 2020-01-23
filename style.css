@@ -157,13 +157,13 @@ button:active {
 }
 
 .feedBack > img {
-  max-block-size: 350px;
+  max-block-size: 300px;
   display: block;
   margin: 0 auto;
 }
 
 .result > img {
-  max-block-size: 250px;
+  max-block-size: 200px;
   display: block;
   margin: 0 auto;
 }
