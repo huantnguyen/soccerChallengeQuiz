@@ -79,3 +79,15 @@ button {
 .soundBox {
   text-align: center;
 }
+
+.feedBack > img {
+  max-block-size: 300px;
+  display: block;
+  margin: 0 auto;
+}
+
+.result > img {
+  max-block-size: 300px;
+  display: block;
+  margin: 0 auto;
+}

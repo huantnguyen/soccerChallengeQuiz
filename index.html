@@ -18,7 +18,7 @@
         </section>
 
         <section class="progressBar">
-          <progress class="completion" id="pending" value="1" max ="7"> </progress>
+          <progress class="completion" id="pending" value="0" max ="5"> </progress>
           <ul>
             <li class="progress"># of Goals:
               <span class="goalNumber">0</span>
@@ -35,15 +35,14 @@
 
         <section class="mainBox">
           <h2> Can You Beat the GoalKeeper? </h2>
-          <button type="button" class="startQuiz">START</button>
+          <button type="button" onclick="playAudio()" class="startQuiz">START</button>
           <img src="Images/goalKeeper.png" alt="goalKepper">
           <section class="soundBox">
             <audio id="myAudio">
               <source src="Sounds/whistle.mp3" type="audio/mpeg">
             </audio>
-            <p> Click the Button to See What Happens!</p>
-
-            <button onclick="playAudio()" type="button"> Play</button>
+            <p> Click the Start Button to See What Happens!</p>
+            <p> (Sound Alert!) </p>
         </section>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

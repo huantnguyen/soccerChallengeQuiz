@@ -2,7 +2,7 @@
 var sound = document.getElementById("myAudio"); 
 
 function playAudio() { 
-  sound.play(); 
+  //sound.play(); 
 } 
 
 //Question data
@@ -66,6 +66,7 @@ const STORE = [
 
 
 //Create variable to store the number of goals and misses
+let questionNumber = 0;
 let score = 0;
 let miss = 0;
 
@@ -78,12 +79,11 @@ function startQuiz() {
   $('.result').hide();
   $('.feedBack').hide();
   $('.questionBox').hide();
-  $('.completion').hide();
+  $('.progressBar').hide();
   $('.mainBox').on('click', '.startQuiz', function (event) {
     $('.mainBox').hide();
-    $('.completion').show();
+    $('.progressBar').show();
     $('.questionBox').show();
-    //$('.questionBox').prepend(generateQuestions());
   });
 }
 
@@ -99,7 +99,7 @@ function generateQuestions(questionNumber) {
   STORE[questionNumber].answers.forEach(function(element) {
     anws.push(`
       <label>
-        <input type="radio" value="${element}" required>
+        <input type="radio" value="${element}" name="choices" required>
         <span>${element} </span> <br> <br>
       </label>`)
   });
@@ -117,38 +117,97 @@ function generateQuestions(questionNumber) {
 function feedBack() {
   $('.questionBox').on('click', '.submitButton', function (event) {
     event.preventDefault();
+    let choice = $('input:checked').val();
+    let correctChoice = STORE[questionNumber].correctAnswer;
+    if (choice === correctChoice) {
+      $('.feedBack').html(`
+      <h3> GOAL!!! You made the right choice that gives your team the lead. Nice work! </h3>
+      <img src="Images/Goal.png" alt="Goal">
+      <span> Keep on the good work! </span>
+      <br> <br>`);
+      score ++;
+      $('.goalNumber').text(score);
+    } else {
+      $('.feedBack').html(`
+      <h3> And the chance goes wasted! You tried but it was not enough and the goalkeeper got to the ball :( </h3>
+      <img src="Images/Miss.png" alt="Goal">
+      <span> Don't worry there are more chances! </span>
+      <br> <br>`);
+      miss ++;
+      $('.missNumber').text(miss);
+    }
     $('.questionBox').hide();
-    var list = document.getElementById("pending");
-    list.value = "7";
     $('.feedBack').show();
-    $('.feedBack').append(`<button type="finalize" class="finalizeButton">See Result</button`);
+    if (questionNumber == (STORE.length - 1) ) {
+      $('.feedBack').append(`<button type="submit" class="seeResult">See Result</button>`);
+    } else if (questionNumber < STORE.length) {
+      $('.feedBack').append(`<button type="submit" class="nextButton">Next</button>`);
+    }
+  });
+}
+
+function nextQuestion() {
+  $('.feedBack').on('click', '.nextButton', function(event) {
+    event.preventDefault();
+    let list = document.getElementById("pending");
+    list.value++;
+    $('.feedBack').hide();
+    questionNumber++;
+    if (questionNumber < STORE.length) {
+      $('.questionBox').show();
+      generateQuestions(questionNumber);
+    }
   });
 }
 
 function finalize() {
-  $('.feedBack').on('click', '.finalizeButton', function (event) {
+  $('.feedBack').on('click', '.seeResult', function (event) {
     event.preventDefault();
+    let list = document.getElementById("pending");
+    list.value++;
     $('.feedBack').hide();
     $('.result').show();
-    $('.result').append(`<button type="restart" class="restartButton">Try Again!</button`);
+    if (score >= 3) {
+      $('.result').html(`
+      <h3> Congratulations! Your great choices and amazing leadership skill have helped your team win the match. </h3>
+      <br> <br>
+      <img src="Images/Up.png" alt="nice">
+      <span> You scored ${score}/5 chances </span>
+      `);
+    } else {
+      $('.result').html(`
+      <h3> It was a great match but your team did not win. Learn from your mistakes and make better decisions next time. </h3>
+      <br> <br>
+      <img src="Images/Down.png" alt="bad">
+      <span> You scored ${score}/5 chances </span>
+      `
+      );
+    }
+    $('.result').append(`<button type="restart" class="restartButton">Try Again</button>`);
   });
 }
 
-function startQuiz2() {
+function restartQuiz() {
   $('.result').on('click', '.restartButton', function (event) {
+    event.preventDefault;
+    score = 0;
+    miss = 0;
+    questionNumber = 0;
+    $('.goalNumber').text(score);
+    $('.missNumber').text(miss);
     $('.result').hide();
-    $('.questionBox').show();
-    //$('.questionBox').prepend(generateQuestions());
+    $('.mainBox').show();
   });
 }
 
 //Main function
 function main() {
   startQuiz();
-  generateQuestions(0);
+  generateQuestions(questionNumber);
   feedBack();
+  nextQuestion();
   finalize();
-  startQuiz2();
+  restartQuiz();
 }
 
 $(main);
