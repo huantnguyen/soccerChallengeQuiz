@@ -71,6 +71,7 @@ button:active {
   transform: translateY(4px);
 }
 
+
 .mainBox {
   border-radius: 25px;
   border: white solid;
@@ -116,6 +117,17 @@ button:active {
 
 .soundBox {
   text-align: center;
+}
+
+.options,.endResult {
+  display: block;
+  margin: 20px;
+  cursor: pointer;
+}
+
+.encourages,.resultNumber {
+  display: block;
+  margin-bottom: 30px;
 }
 
 .feedBack > img {

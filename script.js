@@ -2,7 +2,7 @@
 var sound = document.getElementById("myAudio"); 
 
 function playAudio() { 
-  //sound.play(); 
+  sound.play(); 
 } 
 
 //Question data
@@ -95,20 +95,21 @@ function generateQuestions(questionNumber) {
       <fieldset>
         <legend class="textQuestion">${STORE[questionNumber].question} </legend>
       </fieldset>
-    </form>` ;
+    ` ;
   const anws = [];
   STORE[questionNumber].answers.forEach(function(element) {
     anws.push(`
-      <label>
-        <input type="radio" value="${element}" name="choices" required> </input>
-        <span>${element}</span> <br> <br>
+      <label class="options">
+        <input id="daChoice" type="radio" value="${element}" name="choices" required> 
+        <span>${element}</span>
       </label>`)
   });
   const allAnsw = anws.join('');
   output.push(
     `${questionGen}
     ${allAnsw}
-    ${`<button type="submit" class="submitButton">Submit</button`}`
+    ${`<button type="submit" class="submitButton submit" value="send">Submit</button>`}
+    </form>`
   );
   finalOutput = output.join('');
   $('.questionBox').html(finalOutput);
@@ -119,12 +120,15 @@ function feedBack() {
   $('.questionBox').on('click', '.submitButton', function (event) {
     event.preventDefault();
     let choice = $('input:checked').val();
+    if (choice == null) {
+      alert("You need to choose an answer!");
+    } else {
     let correctChoice = STORE[questionNumber].correctAnswer;
     if (choice === correctChoice) {
       $('.feedBack').html(`
       <h3> GOAL!!! You made the right choice that gives your team the lead. Nice work! </h3>
       <img src="Images/Goal.png" alt="Goal">
-      <span> Keep on the good work! </span>
+      <span class="encourages"> Keep on the good work! </span>
       `);
       score ++;
       $('.goalNumber').text(score);
@@ -133,7 +137,7 @@ function feedBack() {
       <h3> And the chance goes wasted! You tried but it was not enough and the goalkeeper got to the ball :( </h3>
       <img src="Images/Miss.png" alt="Goal">
       <section class="shouldBe"> The correct choice would have been: ${correctChoice} </section>
-      <span> Don't worry there are more chances! </span> <br> <br>
+      <span class="encourages"> Don't worry there are more chances! </span> 
       `);
       miss ++;
       $('.missNumber').text(miss);
@@ -144,6 +148,7 @@ function feedBack() {
       $('.feedBack').append(`<button type="submit" class="seeResult">See Result</button>`);
     } else if (questionNumber < STORE.length) {
       $('.feedBack').append(`<button type="submit" class="nextButton">Next</button>`);
+    }
     }
   });
 }
@@ -178,17 +183,15 @@ function finalize() {
     $('.result').show();
     if (score >= 3) {
       $('.result').html(`
-      <h3> Congratulations! Your great choices and amazing leadership skill have helped your team win the match. </h3>
-      <br> <br>
+      <h3 class="endResult"> Congratulations! Your great choices and amazing leadership skill have helped your team win the match. </h3>
       <img src="Images/Up.png" alt="nice">
-      <span> You scored ${score}/5 chances </span>
+      <span class="resultNumber"> You scored ${score}/5 chances </span>
       `);
     } else {
       $('.result').html(`
-      <h3> It was a great match but your team did not win. Learn from your mistakes and make better decisions next time. </h3>
-      <br> <br>
+      <h3 class="endResult"> It was a great match but your team did not win. Learn from your mistakes and make better decisions next time. </h3>
       <img src="Images/Down.png" alt="bad">
-      <span> You scored ${score}/5 chances </span> <br><br>
+      <span class="resultNumber"> You scored ${score}/5 chances </span>
       `
       );
     }
