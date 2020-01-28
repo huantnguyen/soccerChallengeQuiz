@@ -8,7 +8,7 @@ A a well-architected, dynamic, accessible client-side quiz app.
 
 ### Executing program
 
-*Simply go to the link to play: 
+*Simply go to the link to play: https://huantnguyen.github.io/soccerChallengeQuiz/
 
 ## Authors
 
